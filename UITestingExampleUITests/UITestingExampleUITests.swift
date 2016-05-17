@@ -28,9 +28,34 @@ class UITestingExampleUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+//    let app = XCUIApplication()
+//    let typeSomethingTextField = app.textFields["Type something"]
+//    typeSomethingTextField.tap()
+//    typeSomethingTextField.typeText("Foo")
+//    app.buttons["Click to copy name"].tap()
+//    XCTAssert(app.buttons["Foo"].exists)
+    
+    func testExample()
+    {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let app = XCUIApplication()
+        app.textFields["Type something"].tap()
+        app.textFields["Type something"].typeText("test")
+        app.buttons["Click to copy name"].tap()
+        XCTAssert(app.buttons["test"].exists)
+    }
+    
+    func testNExtPage()
+    {
+        
+        let app = XCUIApplication()
+        app.buttons["Next"].tap()
+        //pushing view controller test
+        let nextElement:XCUIElement = app.staticTexts["You are here"]
+        
+        XCTAssertEqual(nextElement.exists, true)        
     }
     
 }
