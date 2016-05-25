@@ -27,13 +27,7 @@ class UITestingExampleUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-//    let app = XCUIApplication()
-//    let typeSomethingTextField = app.textFields["Type something"]
-//    typeSomethingTextField.tap()
-//    typeSomethingTextField.typeText("Foo")
-//    app.buttons["Click to copy name"].tap()
-//    XCTAssert(app.buttons["Foo"].exists)
+
     
     func testExample()
     {
@@ -41,21 +35,46 @@ class UITestingExampleUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         let app = XCUIApplication()
-        app.textFields["Type something"].tap()
-        app.textFields["Type something"].typeText("test")
-        app.buttons["Click to copy name"].tap()
+        let typeSomethingElementsQuery = app.otherElements.containingType(.Button, identifier:"Type something")
+        typeSomethingElementsQuery.childrenMatchingType(.Button)["Type something"].childrenMatchingType(.Button)["Type something"].tap()
+        typeSomethingElementsQuery.childrenMatchingType(.Button)["Type something"].typeText("test")
+        app.buttons["Click to copy name"].tap();
+        
         XCTAssert(app.buttons["test"].exists)
+        
     }
     
-    func testNExtPage()
+    func testGotoNextScreen()
     {
         
         let app = XCUIApplication()
-        app.buttons["Next"].tap()
+        app.buttons["Go to next screen"].tap()
+        
+        let nextElement:XCUIElement = app.staticTexts["Welcome to UITesting with Xcode"]
+        
+        XCTAssertEqual(nextElement.exists, true)
+        
+    }
+    
+    func testNextPage()
+    {
+        
+        let app = XCUIApplication()
+        let typeSomethingElementsQuery = app.otherElements.containingType(.Button, identifier:"Type something")
+        
+        typeSomethingElementsQuery.childrenMatchingType(.Button)["Type something"].childrenMatchingType(.Button)["Type something"].tap()
+        typeSomethingElementsQuery.childrenMatchingType(.Button)["Type something"].typeText("testing")
+        
+        app.buttons["Click to copy name"].tap()
+        app.tables.staticTexts["testing"].tap()
+        
+//        let app = XCUIApplication()
+//        app.buttons["Go to next screen"].tap()
         //pushing view controller test
-        let nextElement:XCUIElement = app.staticTexts["You are here"]
+        let nextElement:XCUIElement = app.staticTexts["Welcome to UITesting with Xcode"]
         
         XCTAssertEqual(nextElement.exists, true)        
     }
+
     
 }
