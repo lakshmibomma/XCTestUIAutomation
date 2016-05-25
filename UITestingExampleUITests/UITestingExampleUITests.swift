@@ -66,10 +66,14 @@ class UITestingExampleUITests: XCTestCase {
         typeSomethingElementsQuery.childrenMatchingType(.Button)["Type something"].typeText("testing")
         
         app.buttons["Click to copy name"].tap()
+        
+        let cells = app.tables.cells
+        
+        XCTAssertEqual(cells.count, 5, "found instead: \(cells.debugDescription)")
+        
         app.tables.staticTexts["testing"].tap()
         
-//        let app = XCUIApplication()
-//        app.buttons["Go to next screen"].tap()
+
         //pushing view controller test
         let nextElement:XCUIElement = app.staticTexts["Welcome to UITesting with Xcode"]
         
